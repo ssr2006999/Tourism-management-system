@@ -20,7 +20,7 @@
             <p><strong>Location:</strong> {{ pkg.location }}</p>
             <p><strong>Duration:</strong> {{ pkg.days }} days</p>
             <p><strong>Price per person:</strong> ₹{{ pkg.price }}</p>
-            <p id="total-price-display">
+            <p id="total-price-display" style="font-size: 1.2rem; font-weight: bold; color: #2c3e50; margin-top: 10px;">
                 Total Price: ₹{{ pkg.price }}
             </p>
             <input type="hidden" name="package_id" value="{{ pkg.id }}">
@@ -44,7 +44,7 @@
             <p><strong>Location:</strong> <span id="selected-pkg-location"></span></p>
             <p><strong>Duration:</strong> <span id="selected-pkg-days"></span> days</p>
             <p><strong>Price per person:</strong> ₹<span id="selected-pkg-price"></span></p>
-            <p id="total-price-display">
+            <p id="total-price-display" style="font-size: 1.2rem; font-weight: bold; color: #2c3e50; margin-top: 10px;">
                 Total Price: ₹<span id="selected-pkg-total"></span>
             </p>
             <input type="hidden" id="base-price" value="">

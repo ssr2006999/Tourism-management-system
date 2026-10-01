@@ -2,7 +2,7 @@
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
-    border-bottom: 2px solid #484848;
+    border-bottom: 2px solid #eee;
     padding-bottom: 10px;
 }
 
@@ -14,16 +14,16 @@
     border-bottom: 3px solid transparent;
     font-size: 1rem;
     font-weight: 600;
-    color: #C0C0C0;
+    color: #666;
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .auth-tab:hover {
-    color: #87CEFA;
+    color: #3498db;
 }
 
 .auth-tab.active {
-    color: #87CEFA;
-    border-bottom-color: #87CEFA;
+    color: #3498db;
+    border-bottom-color: #3498db;
 }

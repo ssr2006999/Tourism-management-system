@@ -1,7 +1,7 @@
 {% macro package_form(package=None) %}
-<form method="POST" action="{{ url_for('admin.admin_dashboard') }}" class="admin-form">
+<form method="POST" action="{{ url_for('admin.admin_dashboard') }}" style="margin-bottom: 30px;">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    <div class="form-section">
+    <div class="form-section" style="max-width: none; margin: 0;">
         <h3>{{ 'Edit Package' if package else 'Add Package' }}</h3>
         {% if package %}
         <input type="hidden" name="pkg_id" value="{{ package.id }}">
@@ -29,7 +29,7 @@
         </div>
         <button type="submit" class="btn btn-primary">{{ 'Save Changes' if package else 'Add Package' }}</button>
         {% if package %}
-        <a href="{{ url_for('admin.admin_dashboard') }}" class="btn btn-secondary btn-cancel">Cancel</a>
+        <a href="{{ url_for('admin.admin_dashboard') }}" class="btn btn-secondary" style="margin-left: 10px;">Cancel</a>
         {% endif %}
     </div>
 </form>

@@ -11,34 +11,34 @@
     <h1>My Bookings</h1>
 
     {% if bookings %}
-    <table class="admin-table" style="margin-top: 20px;">
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
         <thead>
-            <tr>
-                <th>Booking ID</th>
-                <th>Package</th>
-                <th>Destination</th>
-                <th>Location</th>
-                <th>Travel Date</th>
-                <th>People</th>
-                <th>Total</th>
-                <th>Payment Status</th>
-                <th>Payment Method</th>
-                <th>Booking Status</th>
+            <tr style="background-color: #2c3e50; color: white;">
+                <th style="padding: 10px; text-align: left;">Booking ID</th>
+                <th style="padding: 10px; text-align: left;">Package</th>
+                <th style="padding: 10px; text-align: left;">Destination</th>
+                <th style="padding: 10px; text-align: left;">Location</th>
+                <th style="padding: 10px; text-align: left;">Travel Date</th>
+                <th style="padding: 10px; text-align: left;">People</th>
+                <th style="padding: 10px; text-align: left;">Total</th>
+                <th style="padding: 10px; text-align: left;">Payment Status</th>
+                <th style="padding: 10px; text-align: left;">Payment Method</th>
+                <th style="padding: 10px; text-align: left;">Booking Status</th>
             </tr>
         </thead>
         <tbody>
         {% for b in bookings %}
             <tr>
-                <td>{{ b.id }}</td>
-                <td>{{ b.package_name }}</td>
-                <td>{{ b.destination_name }}</td>
-                <td>{{ b.location }}</td>
-                <td>{{ b.travel_date }}</td>
-                <td>{{ b.num_people }}</td>
-                <td>₹{{ b.total_price }}</td>
-                <td>{{ b.payment_status }}</td>
-                <td>{{ b.payment_method or '-' }}</td>
-                <td>{{ b.status }}</td>
+                <td style="padding: 8px; border: 1px solid #ccc;">{{ b.id }}</td>
+                <td style="padding: 8px; border: 1px solid #ccc;">{{ b.package_name }}</td>
+                <td style="padding: 8px; border: 1px solid #ccc;">{{ b.destination_name }}</td>
+                <td style="padding: 8px; border: 1px solid #ccc;">{{ b.location }}</td>
+                <td style="padding: 8px; border: 1px solid #ccc;">{{ b.travel_date }}</td>
+                <td style="padding: 8px; border: 1px solid #ccc;">{{ b.num_people }}</td>
+                <td style="padding: 8px; border: 1px solid #ccc;">₹{{ b.total_price }}</td>
+                <td style="padding: 8px; border: 1px solid #ccc;">{{ b.payment_status }}</td>
+                <td style="padding: 8px; border: 1px solid #ccc;">{{ b.payment_method or '-' }}</td>
+                <td style="padding: 8px; border: 1px solid #ccc;">{{ b.status }}</td>
             </tr>
         {% endfor %}
         </tbody>
