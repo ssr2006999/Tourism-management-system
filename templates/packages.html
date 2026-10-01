@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Packages - IndoTourism{% endblock %}
+
+{% block content %}
+<section>
+    <h1>Tour Packages</h1>
+    <p>Browse our curated tour packages for every kind of traveler.</p>
+    <div class="card-grid">
+        {% if packages %}
+        {% for pkg in packages %}
+        <div class="card">
+            <h3>{{ pkg.package_name }}</h3>
+            <p><strong>Destination:</strong> {{ pkg.destination_name }}</p>
+            <p><strong>Location:</strong> {{ pkg.location }}</p>
+            <p><strong>Duration:</strong> {{ pkg.days }} days</p>
+            <p><strong>Price:</strong> ₹{{ pkg.price }}</p>
+            <p>{{ pkg.description }}</p>
+            <a href="{{ url_for('main.package_details', package_id=pkg.id) }}" class="btn btn-small">View Details</a>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No packages available.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - IndoTourism{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Welcome to IndoTourism</h1>
+    <p>Your trusted partner for unforgettable travel experiences. Explore curated tour packages at great prices.</p>
+    <div class="hero-buttons">
+        <a href="{{ url_for('main.packages') }}" class="btn btn-primary">View Packages</a>
+    </div>
+</section>
+
+<section class="featured">
+    <h2>Popular Packages</h2>
+    <div class="card-grid">
+        {% if popular_packages %}
+        {% for pkg in popular_packages %}
+        <div class="card">
+            <h3>{{ pkg.package_name }}</h3>
+            <p><strong>Destination:</strong> {{ pkg.destination_name }}</p>
+            <p><strong>Location:</strong> {{ pkg.location }}</p>
+            <p><strong>Duration:</strong> {{ pkg.days }} days</p>
+            <p><strong>Price:</strong> ₹{{ pkg.price }}</p>
+            <a href="{{ url_for('main.package_details', package_id=pkg.id) }}" class="btn btn-small">View Details</a>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No packages available.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

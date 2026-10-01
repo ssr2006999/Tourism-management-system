@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import package_form %}
+{% block title %}Admin Dashboard - IndoTourism{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+
+{% block content %}
+<section>
+    <h1>Admin Dashboard</h1>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Total Tourists</h3>
+            <p class="stat-number">{{ tourists_count }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Total Packages</h3>
+            <p class="stat-number">{{ packages_count }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Total Bookings</h3>
+            <p class="stat-number">{{ bookings_count }}</p>
+        </div>
+    </div>
+
+    <h2>Manage Packages</h2>
+    
+    {{ package_form(edit_package) }}
+
+    {% if all_packages %}
+    <h3>Existing Packages</h3>
+    <div style="max-height: 400px; overflow-y: auto; margin-top: 20px;">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Package</th>
+                    <th>Destination</th>
+                    <th>Location</th>
+                    <th>Days</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for p in all_packages %}
+                <tr>
+                    <td>{{ p.id }}</td>
+                    <td>{{ p.package_name }}</td>
+                    <td>{{ p.destination_name }}</td>
+                    <td>{{ p.location }}</td>
+                    <td>{{ p.days }}</td>
+                    <td>₹{{ p.price }}</td>
+                    <td>
+                        <a href="{{ url_for('admin.admin_dashboard', edit_pkg=p.id) }}" class="btn btn-small">Edit</a>
+                        <form method="POST" action="{{ url_for('admin.admin_dashboard') }}" style="display: inline; margin-left: 5px;">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="pkg_id" value="{{ p.id }}">
+                            <button type="submit" name="action" value="delete_package" class="btn-delete" onclick="return confirm('Are you sure you want to delete this package?');">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>No packages available.</p>
+    {% endif %}
+
+    <h2>Manage Bookings</h2>
+    {% if all_bookings %}
+    <div style="max-height: 400px; overflow-y: auto; margin-top: 20px;">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Tourist</th>
+                    <th>Package</th>
+                    <th>Destination</th>
+                    <th>Location</th>
+                    <th>Travel Date</th>
+                    <th>People</th>
+                    <th>Total</th>
+                    <th>Payment Method</th>
+                    <th>Payment Status</th>
+                    <th>Booking Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for b in all_bookings %}
+                <tr>
+                    <td>{{ b.id }}</td>
+                    <td>{{ b.tourist_name }}</td>
+                    <td>{{ b.package_name }}</td>
+                    <td>{{ b.destination_name }}</td>
+                    <td>{{ b.location }}</td>
+                    <td>{{ b.travel_date }}</td>
+                    <td>{{ b.num_people }}</td>
+                    <td>₹{{ b.total_price }}</td>
+                    <td>{{ b.payment_method or '-' }}</td>
+                    <td>{{ b.payment_status }}</td>
+                    <td>{{ b.status }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>No bookings available.</p>
+    {% endif %}
+</section>
+{% endblock %}

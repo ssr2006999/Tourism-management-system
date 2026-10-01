@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if active_tab == 'register' %}Register - IndoTourism{% else %}Login - IndoTourism{% endif %}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="form-section">
+    <div class="auth-tabs">
+        <button class="auth-tab {% if active_tab == 'login' %}active{% endif %}" onclick="switchTab('login')">Login</button>
+        <button class="auth-tab {% if active_tab == 'register' %}active{% endif %}" onclick="switchTab('register')">Register</button>
+    </div>
+
+    <form id="login-form" method="POST" action="{{ url_for('auth.login') }}" {% if active_tab != 'login' %}style="display: none;"{% endif %}>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="next" value="{{ next_url }}">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+
+    <form id="register-form" method="POST" action="{{ url_for('auth.register') }}" {% if active_tab != 'register' %}style="display: none;"{% endif %}>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" name="phone">
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</section>
+
+<script>
+    function switchTab(tab) {
+        document.getElementById('login-form').style.display = tab === 'login' ? 'block' : 'none';
+        document.getElementById('register-form').style.display = tab === 'register' ? 'block' : 'none';
+        
+        document.querySelectorAll('.auth-tab').forEach(btn => {
+            btn.classList.toggle('active', btn.textContent.toLowerCase() === tab);
+        });
+        
+        // Update URL without reload
+        const newUrl = tab === 'register' ? '{{ url_for("auth.register") }}' : '{{ url_for("auth.login") }}';
+        window.history.replaceState({}, '', newUrl);
+    }
+</script>
+{% endblock %}
